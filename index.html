@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tamil Movies Hub</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#111;
+color:white;
+text-align:center;
+}
+
+header{
+background:red;
+padding:20px;
+font-size:30px;
+}
+
+.container{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+margin-top:20px;
+}
+
+.movie{
+background:#222;
+width:200px;
+margin:15px;
+padding:10px;
+border-radius:10px;
+}
+
+.movie img{
+width:100%;
+border-radius:10px;
+}
+
+button{
+background:red;
+color:white;
+border:none;
+padding:10px;
+margin-top:10px;
+cursor:pointer;
+}
+
+button:hover{
+background:darkred;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+Tamil Movies Download
+</header>
+
+<input type="text" id="search" placeholder="Search Movie..." onkeyup="searchMovie()">
+
+<div class="container" id="movieList">
+
+<div class="movie">
+<img src="https://via.placeholder.com/200x300">
+<h3>Leo</h3>
+<button onclick="downloadMovie('movies/leo.mp4')">Download</button>
+</div>
+
+<div class="movie">
+<img src="https://via.placeholder.com/200x300">
+<h3>Jailer</h3>
+<button onclick="downloadMovie('movies/jailer.mp4')">Download</button>
+</div>
+
+<div class="movie">
+<img src="https://via.placeholder.com/200x300">
+<h3>Vikram</h3>
+<button onclick="downloadMovie('movies/vikram.mp4')">Download</button>
+</div>
+
+</div>
+
+<script>
+
+function downloadMovie(link){
+window.location.href = link;
+}
+
+function searchMovie(){
+
+let input = document.getElementById("search").value.toLowerCase();
+let movies = document.querySelectorAll(".movie");
+
+movies.forEach(function(movie){
+
+let title = movie.innerText.toLowerCase();
+
+if(title.includes(input)){
+movie.style.display="block";
+}else{
+movie.style.display="none";
+}
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
