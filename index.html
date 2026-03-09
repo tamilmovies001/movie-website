@@ -6,7 +6,7 @@
 <style>
 
 body{
-font-family: Arial;
+font-family:Arial;
 background:#111;
 color:white;
 text-align:center;
@@ -27,7 +27,7 @@ margin-top:20px;
 
 .movie{
 background:#222;
-width:200px;
+width:220px;
 margin:15px;
 padding:10px;
 border-radius:10px;
@@ -43,7 +43,7 @@ background:red;
 color:white;
 border:none;
 padding:10px;
-margin-top:10px;
+margin:5px;
 cursor:pointer;
 }
 
@@ -60,13 +60,18 @@ display:none;
 margin-top:20px;
 }
 
+input{
+padding:8px;
+margin:5px;
+}
+
 </style>
 </head>
 
 <body>
 
 <header>
-Tamil Movies Download
+Tamil Movies Hub
 </header>
 
 <!-- OWNER LOGIN -->
@@ -75,74 +80,112 @@ Tamil Movies Download
 <button onclick="loginOwner()">Login</button>
 </div>
 
-<!-- UPLOAD BUTTON (OWNER ONLY) -->
+<!-- OWNER MOVIE ADD SECTION -->
 <div id="uploadSection">
-<h3>Upload Movie</h3>
-<input type="file" id="videoUpload">
-<button onclick="uploadMovie()">Upload</button>
+
+<h3>Add Movie</h3>
+
+<input type="text" id="movieTitle" placeholder="Movie Name"><br>
+
+<input type="text" id="posterLink" placeholder="Poster Image URL"><br>
+
+<input type="text" id="movieLink" placeholder="Movie Download / Watch Link"><br>
+
+<button onclick="addMovie()">Add Movie</button>
+
 </div>
+
+<br>
 
 <input type="text" id="search" placeholder="Search Movie..." onkeyup="searchMovie()">
 
 <div class="container" id="movieList">
 
+<!-- Example Movie -->
 
+<div class="movie">
+
+<img src="https://via.placeholder.com/200x300">
+
+<h3>Sample Movie</h3>
+
+<a href="https://drive.google.com" target="_blank">
+<button>Watch</button>
+</a>
+
+<a href="https://drive.google.com" target="_blank">
+<button>Download</button>
+</a>
+
+</div>
 
 </div>
 
 <script>
 
-let ownerPassword = "domnic007"; // change this password
+let ownerPassword="admin007";
 
 function loginOwner(){
 
-let input = document.getElementById("ownerPass").value;
+let pass=document.getElementById("ownerPass").value;
 
-if(input === ownerPassword){
+if(pass===ownerPassword){
+
 document.getElementById("uploadSection").style.display="block";
-alert("Owner login successful");
+
+alert("Owner Login Success");
+
 }else{
-alert("Wrong password");
-}
+
+alert("Wrong Password");
 
 }
 
-function uploadMovie(){
+}
 
-let file = document.getElementById("videoUpload").files[0];
+function addMovie(){
 
-if(!file){
-alert("Select a video first");
+let title=document.getElementById("movieTitle").value;
+let poster=document.getElementById("posterLink").value;
+let link=document.getElementById("movieLink").value;
+
+if(title=="" || poster=="" || link==""){
+alert("Fill all fields");
 return;
 }
 
-let movieList = document.getElementById("movieList");
+let movieList=document.getElementById("movieList");
 
-let movieDiv = document.createElement("div");
-movieDiv.className="movie";
+let div=document.createElement("div");
 
-movieDiv.innerHTML = `
-<img src="https://via.placeholder.com/200x300">
-<h3>${file.name}</h3>
-<button onclick="downloadMovie('${URL.createObjectURL(file)}')">Download</button>
+div.className="movie";
+
+div.innerHTML=`
+<img src="${poster}">
+<h3>${title}</h3>
+
+<a href="${link}" target="_blank">
+<button>Watch</button>
+</a>
+
+<a href="${link}" target="_blank">
+<button>Download</button>
+</a>
 `;
 
-movieList.appendChild(movieDiv);
+movieList.appendChild(div);
 
-}
-
-function downloadMovie(link){
-window.location.href = link;
 }
 
 function searchMovie(){
 
-let input = document.getElementById("search").value.toLowerCase();
-let movies = document.querySelectorAll(".movie");
+let input=document.getElementById("search").value.toLowerCase();
+
+let movies=document.querySelectorAll(".movie");
 
 movies.forEach(function(movie){
 
-let title = movie.innerText.toLowerCase();
+let title=movie.innerText.toLowerCase();
 
 if(title.includes(input)){
 movie.style.display="block";
@@ -158,4 +201,5 @@ movie.style.display="none";
 
 </body>
 </html>
+
 
